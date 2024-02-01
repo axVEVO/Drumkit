@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>TR 808</title>
+  </head>
+
+  <body>
+    <div class="keys">
+      <div data-key="KeyA" class="key">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyS" class="key">
+        <kbd>S</kbd>
+        <span class="sound">hihat</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyD" class="key">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyF" class="key">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyG" class="key">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyH" class="key">
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyJ" class="key">
+        <kbd>J</kbd>
+        <span class="sound">snare</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyK" class="key">
+        <kbd>K</kbd>
+        <span class="sound">tom</span>
+      </div>
+    <div class="keys">
+      <div data-key="KeyL" class="key">
+        <kbd>L</kbd>
+        <span class="sound">tink</span>
+      </div>
+    </div>
+
+  <audio data-key="KeyA" src="audio/TR 808 Clap 1.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyS" src="audio/TR 808 Hihat 1.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyD" src="audio/Kick drum sound effect.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyF" src="audio/TR 808 Openhihat 1.mp3" type="audi/mpeg"></audio>
+  <audio data-key="KeyG" src="audio/boom.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyH" src="audio/ride.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyJ" src="audio/snare.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyK" src="audio/tom.mp3" type="audio/mpeg"></audio>
+  <audio data-key="KeyL" src="audio/tink.mp3" type="audio/mpeg"></audio>
+
+  <script>
+
+
+  	function playSound(e) {
+  		const audio = document.querySelector(`audio[data-key="${e.code}"]`);
+  		const key = document.querySelector(`.key[data-key="${e.code}"]`);
+  		if(!audio) return; // Stop the function from running all together
+  		audio.currentTime = 0; // Rewind to the start
+  		audio.play();
+  		key.classList.add(`playing`);
+  	}
+  	function removeTransition(e) {
+  	if (e.propertyName !== `transform`) return; // skip it if it's not a transform
+  	this.classList.remove(`playing`);
+  	}
+
+  	const keys = document.querySelectorAll(`.key`);
+  	keys.forEach(key => key.addEventListener(`transitionend`, removeTransition));
+    window.addEventListener(`keydown`, playSound);
+
+  </script>
+
+  </body>
+</html>
